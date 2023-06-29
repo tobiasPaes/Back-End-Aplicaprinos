@@ -1,13 +1,19 @@
 package project.ufrn.pw.api_rest.service;
 
-// import org.springframework.stereotype.Service;
+import java.util.List;
 
-// import project.ufrn.pw.api_rest.domain.Pedido;
-// import project.ufrn.pw.api_rest.repository.PedidoRepository;
+import org.springframework.stereotype.Service;
+import project.ufrn.pw.api_rest.domain.Pedido;
+import project.ufrn.pw.api_rest.repository.PedidoRepository;
 
-// @Service
-// public class PedidoService extends GenericService<Pedido, PedidoRepository> {
-//     public PedidoService(PedidoRepository repository) {
-//         super(repository);
-//     }
-// }
+@Service
+public class PedidoService extends GenericService<Pedido, PedidoRepository>{
+    public PedidoService(PedidoRepository repository) {
+        super(repository);
+    }
+
+    @Override
+	public List<Pedido> list() {		
+		throw new UnsupportedOperationException("Unimplemented method 'list'");
+	}
+}

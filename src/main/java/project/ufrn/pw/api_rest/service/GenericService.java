@@ -1,44 +1,35 @@
 package project.ufrn.pw.api_rest.service;
 
-import org.springframework.stereotype.Service;
-
 import jakarta.persistence.EntityNotFoundException;
 import project.ufrn.pw.api_rest.domain.AbstractEntity;
 import project.ufrn.pw.api_rest.repository.IGenericRepository;
 import java.util.*;
 
-@Service
-public abstract class GenericService<E extends AbstractEntity, R extends IGenericRepository> implements IGenericRepository<E>{
+public abstract class GenericService<E extends AbstractEntity, R extends IGenericRepository<E>> implements IGenericService<E>{
 
     R repository;
-
-
+    
     public GenericService(R repository){
         this.repository = repository;
     }
-
-
- 
+    
+    @Override
     public E create(E e) {
         return (E) this.repository.save(e);
     }
 
+    @Override
     public void delete(Long id){
         repository.deleteById(id);
     }
 
-    public List<E> list(){
-        return (List<E>) repository.findAll();
-    }
-
+    @Override
     public E update(E e, Long id){
         Optional<E> banco = repository.findById(id);
         if(banco.isPresent()){
-            return (E) repository.save(banco);
+            return (E) this.repository.save(e);
         }else{
             throw new EntityNotFoundException();
         }
     }
-
-
 }

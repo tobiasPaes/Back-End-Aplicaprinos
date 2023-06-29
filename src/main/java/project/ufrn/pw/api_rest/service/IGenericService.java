@@ -1,7 +1,7 @@
 package project.ufrn.pw.api_rest.service;
 
-import java.util.List;
 import project.ufrn.pw.api_rest.domain.AbstractEntity;
+import java.util.List;
 
 public interface IGenericService<E extends AbstractEntity> {
     public E create(E e);
