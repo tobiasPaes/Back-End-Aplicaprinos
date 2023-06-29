@@ -17,9 +17,11 @@ public class ComputadorController {
     }
 
     @PostMapping
-    public Usuario create(@RequestBody Usuario p, @PathVariable Long id){
-        return this.create(p, id);
+    public Usuario create(@RequestBody Usuario p, @PathVariable Long id) {
+        Usuario user = service.update(p, id);
+        return user;
     }
+
 
     @GetMapping
     public List<Usuario> list(){
@@ -28,7 +30,7 @@ public class ComputadorController {
 
     @PutMapping("{id}")
     public Usuario update(@RequestBody Usuario p, @PathVariable Long id){
-        return this.service.update(p, id);
+        return this.service.update(p, id); //UNICO ERRO QUANDO TENTA CRIAR
     }
 
     @DeleteMapping("{id}")

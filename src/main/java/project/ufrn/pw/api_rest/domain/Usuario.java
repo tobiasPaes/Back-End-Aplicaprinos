@@ -19,3 +19,12 @@ public class Usuario extends AbstractEntity{
     //     @NotBlank(message = "")
     // }
 }
+
+// {
+//  "username": "Bruno",
+//  "login": "brunin",
+//  "password": "brunoooo",
+//  "isAdmin": true
+// }
+
+// localhost:8080/computador
