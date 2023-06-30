@@ -1,5 +1,7 @@
 package project.ufrn.pw.api_rest.controller;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import project.ufrn.pw.api_rest.domain.Usuario;
 import project.ufrn.pw.api_rest.service.UsuarioService;
@@ -8,20 +10,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/computador")
-public class ComputadorController {
+public class UsuarioController {
 
     UsuarioService service;
+    ModelMapper mapper;
 
-    public ComputadorController(UsuarioService service) {
+    public UsuarioController(UsuarioService service, ModelMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @PostMapping
-    public Usuario create(@RequestBody Usuario p, @PathVariable Long id) {
-        Usuario user = service.update(p, id);
-        return user;
-    }
+    @ResponseStatus(HttpStatus.CREATED)
+    public Usuario.DtoResponse create(@RequestBody Usuario.DtoRequest p) {
 
+        Usuario usuario = this.service.create(Usuario.DtoRequest.convertToEntity(p, mapper));
+        return Usuario.DtoResponse.convertToDto(usuario, mapper);
+    }
 
     @GetMapping
     public List<Usuario> list(){
@@ -30,7 +35,7 @@ public class ComputadorController {
 
     @PutMapping("{id}")
     public Usuario update(@RequestBody Usuario p, @PathVariable Long id){
-        return this.service.update(p, id); //UNICO ERRO QUANDO TENTA CRIAR
+        return this.service.update(p, id);
     }
 
     @DeleteMapping("{id}")
