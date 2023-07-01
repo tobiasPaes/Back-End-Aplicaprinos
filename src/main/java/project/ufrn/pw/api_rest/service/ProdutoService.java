@@ -16,4 +16,9 @@ public class ProdutoService extends GenericService<Produto, ProdutoRepository>{
 	public List<Produto> list() {		
 		throw new UnsupportedOperationException("Unimplemented method 'list'");
 	}
+
+    @Override
+    public Produto getById(Long id) {
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    }
 }

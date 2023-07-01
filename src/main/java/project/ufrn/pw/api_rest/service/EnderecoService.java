@@ -18,4 +18,9 @@ public class EnderecoService extends GenericService<Endereco, EnderecoRepository
 		
 		throw new UnsupportedOperationException("Unimplemented method 'list'");
 	}
+
+	@Override
+    public Endereco getById(Long id) {
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    }
 }

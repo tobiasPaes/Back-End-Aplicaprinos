@@ -16,4 +16,9 @@ public class PedidoService extends GenericService<Pedido, PedidoRepository>{
 	public List<Pedido> list() {		
 		throw new UnsupportedOperationException("Unimplemented method 'list'");
 	}
+
+    @Override
+    public Pedido getById(Long id) {
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    }
 }

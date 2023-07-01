@@ -10,6 +10,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
+
+import project.ufrn.pw.api_rest.controller.PedidoController;
+import project.ufrn.pw.api_rest.domain.Pedido;
+import org.springframework.hateoas.RepresentationModel;
+
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
+ 
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -21,7 +31,7 @@ public class Pedido extends AbstractEntity{
     String formaPagamento;
 
     Float valor;
-
+    
     @ManyToMany
     @JoinTable(
         name = "pedidos_produtos",
@@ -34,5 +44,40 @@ public class Pedido extends AbstractEntity{
     )
     ArrayList<Produto> products = new ArrayList<Produto>();
 
+    public static class DtoResponse extends RepresentationModel<DtoResponse>{
+        Float valor;
+        ArrayList<Produto> products;
+
+
+        public static DtoResponse convertToDto(Pedido p, ModelMapper mapper){
+            return mapper.map(p, DtoResponse.class);
+        }
+
+        public void generateLinks(Long id){
+             add(linkTo(PedidoController.class).slash(id).withSelfRel());
+             add(linkTo(PedidoController.class).slash(id).withRel("delete"));
+             add(linkTo(PedidoController.class).withRel("usuários"));
+        }
+    }
+
+    public static class DtoRequest{
+        String formaPagamento;
+
+        public static Pedido convertToEntity(DtoRequest dto, ModelMapper mapper){ 
+            return mapper.map(dto, Pedido.class);
+        }
+    }
+
+    /* exemplo
+        ArrayList<String> links
+        links{
+            self: "/atualizar"
+            pedido: "/listar"
+            self: "/deletar"
+        }
+        links{
+            rel: "url"
+        }
+    */
     
 }

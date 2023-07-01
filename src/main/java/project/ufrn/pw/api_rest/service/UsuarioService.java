@@ -16,4 +16,9 @@ public class UsuarioService extends GenericService<Usuario, UsuarioRepository>{
 	public List<Usuario> list() {		
 		throw new UnsupportedOperationException("Unimplemented method 'list'");
 	}
+
+    @Override
+    public Usuario getById(Long id) {
+        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    }
 }
