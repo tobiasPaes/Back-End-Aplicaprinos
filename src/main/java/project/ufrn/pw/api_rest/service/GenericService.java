@@ -32,4 +32,20 @@ public abstract class GenericService<E extends AbstractEntity, R extends IGeneri
             throw new EntityNotFoundException();
         }
     }
+
+    @Override
+    public List<E> list(){
+        return (List<E>) this.repository.findAll();
+    }
+
+    @Override
+    public E getById(Long id){
+        Optional<E> eBanco = repository.findById(id);
+        if(eBanco.isPresent()){
+            return (E) eBanco.get();
+        }else{
+            throw new EntityNotFoundException();
+        }
+        // return (E) this.repository.findById(id);
+    }
 }

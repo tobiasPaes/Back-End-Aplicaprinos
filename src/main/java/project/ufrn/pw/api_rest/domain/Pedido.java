@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,9 +28,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @AllArgsConstructor
 @Data
 public class Pedido extends AbstractEntity{
-    
     String formaPagamento;
-
     Float valor;
     
     @ManyToMany
@@ -44,9 +43,11 @@ public class Pedido extends AbstractEntity{
     )
     ArrayList<Produto> products = new ArrayList<Produto>();
 
+    @Data
+    @EqualsAndHashCode(callSuper = true)
     public static class DtoResponse extends RepresentationModel<DtoResponse>{
+        String formaPagamento;
         Float valor;
-        ArrayList<Produto> products;
 
 
         public static DtoResponse convertToDto(Pedido p, ModelMapper mapper){
@@ -56,11 +57,13 @@ public class Pedido extends AbstractEntity{
         public void generateLinks(Long id){
              add(linkTo(PedidoController.class).slash(id).withSelfRel());
              add(linkTo(PedidoController.class).slash(id).withRel("delete"));
-             add(linkTo(PedidoController.class).withRel("usuários"));
+             add(linkTo(PedidoController.class).withRel("pedido"));
         }
     }
 
+    @Data
     public static class DtoRequest{
+        @NotBlank(message = "Sem forma de pagamento")
         String formaPagamento;
 
         public static Pedido convertToEntity(DtoRequest dto, ModelMapper mapper){ 
@@ -68,16 +71,5 @@ public class Pedido extends AbstractEntity{
         }
     }
 
-    /* exemplo
-        ArrayList<String> links
-        links{
-            self: "/atualizar"
-            pedido: "/listar"
-            self: "/deletar"
-        }
-        links{
-            rel: "url"
-        }
-    */
     
 }

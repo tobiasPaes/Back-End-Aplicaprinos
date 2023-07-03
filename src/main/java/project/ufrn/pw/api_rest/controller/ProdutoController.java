@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
@@ -44,12 +43,21 @@ public class ProdutoController {
     
     @PutMapping("{id}")
     public Produto update(@RequestBody Produto p, @PathVariable Long id) {
-        return this.service.update(p, id);
+        return this.service.saveAndFlush(p, id);
     }
 
+    
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         this.service.delete(id);
     }
 
+     @GetMapping("{id}")
+    public Produto.DtoResponse getById(@PathVariable Long id){
+        Produto p = this.service.getById(id);
+        Produto.DtoResponse res = Produto.DtoResponse.convertToDto(p, mapper);
+        return res;
+    }
+
+    //tem tds
 }

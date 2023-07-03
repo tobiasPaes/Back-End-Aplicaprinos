@@ -1,6 +1,5 @@
 package project.ufrn.pw.api_rest.service;
 
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 import project.ufrn.pw.api_rest.domain.Produto;
@@ -12,13 +11,7 @@ public class ProdutoService extends GenericService<Produto, ProdutoRepository>{
         super(repository);
     }
 
-    @Override
-	public List<Produto> list() {		
-		throw new UnsupportedOperationException("Unimplemented method 'list'");
-	}
-
-    @Override
-    public Produto getById(Long id) {
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public Produto saveAndFlush(Produto p, Long id) {
+        return null;
     }
 }

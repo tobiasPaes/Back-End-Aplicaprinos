@@ -39,7 +39,7 @@ public class Usuario extends AbstractEntity {
     public static class DtoResponse extends RepresentationModel<DtoResponse> {
         String username;
         String login;
-        String password;
+        // String password;
         Boolean isAdmin;
 
         public static DtoResponse convertToDto(Usuario u, ModelMapper mapper){
