@@ -18,7 +18,6 @@ public class Usuario extends AbstractEntity {
     String username;
     String login;
     String password;
-    Boolean isAdmin;
 
     @Data
     public static class DtoRequest {
@@ -40,7 +39,6 @@ public class Usuario extends AbstractEntity {
         String username;
         String login;
         // String password;
-        Boolean isAdmin;
 
         public static DtoResponse convertToDto(Usuario u, ModelMapper mapper){
             return mapper.map(u, DtoResponse.class);
