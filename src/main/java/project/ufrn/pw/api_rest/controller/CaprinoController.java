@@ -8,17 +8,20 @@ import org.springframework.web.bind.annotation.*;
 
 import project.ufrn.pw.api_rest.domain.Caprino;
 import project.ufrn.pw.api_rest.domain.Caprino.DtoResponse;
+import project.ufrn.pw.api_rest.repository.CaprinoRepository;
 import project.ufrn.pw.api_rest.service.CaprinoService;
 
 @RestController
 @RequestMapping("/caprino")
 public class CaprinoController {
     CaprinoService service;
+    CaprinoRepository repository;
     ModelMapper mapper;
 
-    public CaprinoController(CaprinoService service, ModelMapper mapper){
+    public CaprinoController(CaprinoService service, ModelMapper mapper, CaprinoRepository repository){
         this.service = service;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     @PostMapping
@@ -56,28 +59,11 @@ public class CaprinoController {
         this.service.delete(id);
     }
 
-    /* --Atualizar--
     @PutMapping("{id}")
-    public Caprino update(@RequestBody Usuario p, @PathVariable Long id) {
-        return this.service.update(p, id);
+    public Caprino.DtoResponse update(@RequestBody Caprino.DtoRequest dtoRequest, @PathVariable Long id){
+        Caprino ca = Caprino.DtoRequest.convertToEntity(dtoRequest, mapper);
+        Caprino.DtoResponse response = Caprino.DtoResponse.convertToDto(this.service.update(ca, id), mapper);
+        response.generateLinks(id);
+        return response;
     }
-    */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

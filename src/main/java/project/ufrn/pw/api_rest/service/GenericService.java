@@ -24,14 +24,20 @@ public abstract class GenericService<E extends AbstractEntity, R extends IGeneri
     }
 
     @Override
-    public E update(E e, Long id){
-        Optional<E> banco = repository.findById(id);
-        if(banco.isPresent()){
+    public E update(E updatedEntity, Long id) {
+
+        Optional<E> entity = repository.findById(id);
+        if (entity.isPresent()){
+
+            E e = entity.get();
+            e.partialUpdate(updatedEntity);
+
             return (E) this.repository.save(e);
         }else{
-            throw new EntityNotFoundException();
+            throw  new EntityNotFoundException();
         }
     }
+
 
     @Override
     public List<E> list(){
@@ -46,6 +52,5 @@ public abstract class GenericService<E extends AbstractEntity, R extends IGeneri
         }else{
             throw new EntityNotFoundException();
         }
-        // return (E) this.repository.findById(id);
     }
 }

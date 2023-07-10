@@ -17,9 +17,3 @@ public class ApiRestApplication {
 		return new ModelMapper();
 	}
 }
-
-/*
-Usuario 1--N Pedido
-Pedido  N--N Produto
-Usuario   1--1 Endereco
-*/

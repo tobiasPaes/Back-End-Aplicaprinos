@@ -30,6 +30,8 @@ public abstract class AbstractEntity {
     @UpdateTimestamp
     LocalDateTime updatedAt;
 
+    public abstract void partialUpdate(AbstractEntity e);
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

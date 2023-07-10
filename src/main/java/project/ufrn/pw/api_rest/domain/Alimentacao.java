@@ -22,6 +22,15 @@ public class Alimentacao extends AbstractEntity{
     String piquete;
     Float consumoConcentradoDiario;
 
+    @Override
+    public void partialUpdate(AbstractEntity e) {
+        if (e instanceof Alimentacao al){
+            this.piquete = al.piquete;
+            this.consumoConcentradoDiario = al.consumoConcentradoDiario;
+        }
+    }
+
+
     @Data
     public static class DtoRequest{
         @NotBlank(message = "piquete esta em branco, preencha todos os campos")
@@ -47,7 +56,7 @@ public class Alimentacao extends AbstractEntity{
 
         public void generateLinks(Long id){
              add(linkTo(AlimentacaoController.class).slash(id).withSelfRel());
-             add(linkTo(AlimentacaoController.class).withRel("usuários"));
+             add(linkTo(AlimentacaoController.class).withRel("usuario"));
              add(linkTo(AlimentacaoController.class).slash(id).withRel("delete"));
         }
     }

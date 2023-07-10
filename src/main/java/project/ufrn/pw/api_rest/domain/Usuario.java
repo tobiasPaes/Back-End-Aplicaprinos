@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.hateoas.RepresentationModel;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import java.util.List;
 
 @Entity
 @EqualsAndHashCode(callSuper = false)
@@ -18,6 +19,22 @@ public class Usuario extends AbstractEntity {
     String username;
     String login;
     String password;
+
+    @ManyToOne
+    @JoinColumn(name = "adm_id")
+    Administrador ad;
+
+    @ManyToMany(mappedBy = "user")
+    List<Caprino> cap;
+
+    @Override
+    public void partialUpdate(AbstractEntity e) {
+        if (e instanceof Usuario u){
+            this.username = u.username;
+            this.login = u.login;
+            this.password = u.password;
+        }
+    }
 
     @Data
     public static class DtoRequest {
@@ -38,7 +55,6 @@ public class Usuario extends AbstractEntity {
     public static class DtoResponse extends RepresentationModel<DtoResponse> {
         String username;
         String login;
-        // String password;
 
         public static DtoResponse convertToDto(Usuario u, ModelMapper mapper){
             return mapper.map(u, DtoResponse.class);

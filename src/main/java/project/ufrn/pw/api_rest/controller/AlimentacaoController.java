@@ -8,17 +8,20 @@ import org.springframework.web.bind.annotation.*;
 
 import project.ufrn.pw.api_rest.domain.Alimentacao;
 import project.ufrn.pw.api_rest.domain.Alimentacao.DtoResponse;
+import project.ufrn.pw.api_rest.repository.AlimentacaoRepositoty;
 import project.ufrn.pw.api_rest.service.AlimentacaoService;
 
 @RestController
 @RequestMapping("/alimentacao")
 public class AlimentacaoController {
+    AlimentacaoRepositoty repository;
     AlimentacaoService service;
     ModelMapper mapper;
 
-    public AlimentacaoController(AlimentacaoService service, ModelMapper mapper){
+    public AlimentacaoController(AlimentacaoService service, ModelMapper mapper, AlimentacaoRepositoty repository){
         this.service = service;
         this.mapper = mapper;
+        this.repository = repository;
     }
 
     @PostMapping
@@ -56,10 +59,11 @@ public class AlimentacaoController {
         this.service.delete(id);
     }
 
-    /* --Atualizar--
     @PutMapping("{id}")
-    public Alimentacao update(@RequestBody Alimentacao a, @PathVariable Long id) {
-        return this.service.update(a, id);
+    public Alimentacao.DtoResponse update(@RequestBody Alimentacao.DtoRequest dtoRequest, @PathVariable Long id){
+        Alimentacao al = Alimentacao.DtoRequest.convertToEntity(dtoRequest, mapper);
+        Alimentacao.DtoResponse response = Alimentacao.DtoResponse.convertToDto(this.service.update(al, id), mapper);
+        response.generateLinks(id);
+        return response;
     }
-    */
 }
