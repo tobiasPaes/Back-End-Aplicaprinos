@@ -1,3 +1,3 @@
-# Computer Api
+# Aplicaprinos Api
 
-* essa API tem o proposito de alimentar um serviço para venda e cadastro de computadores (5 tabelas)
+* Api desenvolvida para a materia de projetos aplicados. Projeto feito a partir da necessidade de um aplicativo para gerenciar os caprinos do seu devido setor na EAJ (Escola Agricola de Jundiaí)
